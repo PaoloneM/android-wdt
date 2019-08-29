@@ -1,2 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.noesysmobile.wdtlibrary"/>
+          package="com.noesysmobile.wdtlibrary">
+    <application>
+        <service
+                android:name=".WdtService"
+                android:enabled="true"
+                android:exported="false">
+        </service>
+    </application>
+</manifest>

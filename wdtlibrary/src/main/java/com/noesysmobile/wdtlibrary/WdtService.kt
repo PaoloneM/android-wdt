@@ -10,8 +10,7 @@ import com.noesysmobile.wdtlibrary.WdtConstants.Companion.MSG_WDT_EXPIRED
 import java.util.*
 import kotlin.collections.HashMap
 import android.R.string.cancel
-
-
+import android.util.Log
 
 
 class WdtService : Service() {
@@ -45,18 +44,21 @@ class WdtService : Service() {
     }
 
     private fun addClient(replyTo: Messenger, id: String, timeout: Int) {
+        Log.d("WdtService", "addClient")
         mClients[id] = replyTo
         mClientsTimeouts[id] = timeout
         mCounters[id] = 0
     }
 
     private fun removeClient(id: String) {
+        Log.d("WdtService", "removeClient")
         mClients.remove(id)
         mClientsTimeouts.remove(id)
         mCounters.remove(id)
     }
 
     private fun resetCounter(id: String) {
+        Log.d("WdtService", "resetCounter")
         mCounters[id] = 0
     }
 
@@ -64,20 +66,23 @@ class WdtService : Service() {
      * When timer end, increment all counters, check if timeout is gone and eventually notify client and reset the counter
      */
     private fun tick(){
+        Log.d("WdtService", "tick")
         mCounters.forEach { (key, value) -> mCounters[key] = value + 1 }
         mClientsTimeouts.forEach{(key, value) -> checkTimeout(key, value) }
     }
 
     private fun checkTimeout(key: String, value: Int) {
+        Log.d("WdtService", "checkTimeout")
         if (mCounters[key]!! >= value){
             // Checked counter exceeds timeout, signal and reset it
             sendTimeoutMessage(key)
-            mCounters[key] = 0
+            resetCounter(key)
         }
 
     }
 
     private fun sendTimeoutMessage(key: String) {
+        Log.d("WdtService", "sendTimeoutMessage")
         val msg = Message.obtain()
         msg.what = MSG_WDT_EXPIRED
         try {
@@ -88,10 +93,12 @@ class WdtService : Service() {
     }
 
     override fun onCreate() {
+        Log.d("WdtService", "onCreate")
         Timer("WDT", false).scheduleAtFixedRate(TickTask(), 1000, 1000)
     }
 
     override fun onDestroy() {
+        Log.d("WdtService", "onDestroy")
         Timer("WDT").cancel()
     }
 
@@ -100,11 +107,13 @@ class WdtService : Service() {
      * for sending messages to the service.
      */
     override fun onBind(intent: Intent): IBinder {
+        Log.d("WdtService", "onBind")
         return mMessenger.binder
     }
 
     internal inner class TickTask : TimerTask() {
         override fun run() {
+            Log.d("WdtService", "run")
             tick()
         }
     }
