@@ -1,18 +1,20 @@
 package com.noesysmobile.wdtlibtest
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.noesysmobile.wdtlibrary.Wdt
 import com.noesysmobile.wdtlibrary.WdtCallback
-
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import java.util.*
 import kotlin.collections.ArrayList
+import android.widget.AdapterView.OnItemClickListener
+
+
+
 
 class MainActivity : AppCompatActivity(), WdtCallback {
 
@@ -29,6 +31,9 @@ class MainActivity : AppCompatActivity(), WdtCallback {
 
         adapter = WdtListAdapter(this, R.layout.list_row, wdt!!)
         list_view.adapter = adapter
+        list_view.onItemClickListener = OnItemClickListener { parent, view, position, id ->
+            wdt!![position].reset()
+        }
 
         fab.setOnClickListener { view ->
             wdt!!.add(Wdt(this, Random().nextInt(10) + 1, this))
