@@ -1,40 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="6dip"
+        xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <android.support.v7.widget.CardView
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_margin="20dp"
+        android:padding="20dp">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="6dip" >
+
+        <TextView
+                android:id="@+id/timeout_count"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginEnd="20dip"
+                android:layout_marginStart="20dip"
+                android:textSize="50sp" />
+
+        <TextView
+                android:id="@+id/firstLine"
                 android:layout_width="fill_parent"
-                android:layout_height="?android:attr/listPreferredItemHeight"
-                android:padding="6dip" >
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/timeout_count"
+                android:text="Example application"
+                android:textSize="20sp"/>
 
-    <TextView
-            android:id="@+id/timeout_count"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="6dip"
-            />
+        <TextView
+                android:id="@+id/secondLine"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/timeout_count"
+                android:layout_alignParentBottom="true"
+                android:text="Description"
+                android:textSize="16sp"
+                android:singleLine="true"/>
 
-    <TextView
-            android:id="@+id/secondLine"
-            android:layout_width="fill_parent"
-            android:layout_height="26dip"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_toEndOf="@id/timeout_count"
-            android:ellipsize="marquee"
-            android:text="Description"
-            android:textSize="12sp" android:singleLine="true"/>
+        </RelativeLayout>
 
-    <TextView
-            android:id="@+id/firstLine"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/secondLine"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignWithParentIfMissing="true"
-            android:layout_toEndOf="@id/timeout_count"
-            android:gravity="center_vertical"
-            android:text="Example application"
-            android:textSize="16sp" />
+    </android.support.v7.widget.CardView>
 
-</RelativeLayout>
+</LinearLayout>
+
