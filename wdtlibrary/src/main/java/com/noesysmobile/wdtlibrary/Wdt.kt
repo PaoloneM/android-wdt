@@ -8,6 +8,7 @@ import android.os.*
 import com.noesysmobile.wdtlibrary.WdtConstants.Companion.MSG_REGISTER_CLIENT
 import android.content.Intent
 import android.util.Log
+import com.noesysmobile.wdtlibrary.WdtConstants.Companion.ID
 import com.noesysmobile.wdtlibrary.WdtConstants.Companion.MSG_RESET
 import com.noesysmobile.wdtlibrary.WdtConstants.Companion.MSG_UNREGISTER_CLIENT
 import java.util.*
@@ -136,7 +137,9 @@ class Wdt(context: Context, timeout: Int, callback: WdtCallback)  {
     private fun obtainMessage(what: Int): Message {
         Log.d("Wdt", "obtainMessage")
         val message = Message.obtain()
-        message.obj = mId
+        val bundle = Bundle()
+        bundle.putString(ID, mId)
+        message.obj = bundle
         message.what = what
         if (what == MSG_REGISTER_CLIENT || what == MSG_UNREGISTER_CLIENT)
           message.replyTo = mMessenger

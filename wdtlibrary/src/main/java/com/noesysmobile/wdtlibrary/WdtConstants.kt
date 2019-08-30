@@ -28,6 +28,21 @@ class WdtConstants {
          */
         internal val MSG_WDT_EXPIRED = 1000
 
+        /**
+         * Initial timer delay
+         */
+        internal val TIMER_INITIAL_DELAY = 0L
+
+        /**
+         * Initial timer delay
+         */
+        internal val TIMER_PERIOD = 1000L
+
+        /**
+         * WDT id key in bundle
+         */
+        internal val ID = "id"
+
     }
 
 }
