@@ -17,17 +17,15 @@ class WdtService : Service() {
 
 
     /** Keeps track of all current registered clients.  */
-    internal var mClients = HashMap<String, Messenger>()
+    private var mClients = HashMap<String, Messenger>()
     /** Keeps track of all current registered clients' timeouts.  */
-    internal var mClientsTimeouts = HashMap<String, Int>()
-   /** Keeps track of all current registered clients' timeouts.  */
-    internal var mCounters = HashMap<String, Int>()
-
-
-    /**
-     * Target we publish for clients to send messages to IncomingHandler.
-     */
-    internal val mMessenger = Messenger(IncomingHandler())
+    private var mClientsTimeouts = HashMap<String, Int>()
+    /** Keeps track of all current registered clients' timeouts.  */
+    private var mCounters = HashMap<String, Int>()
+    /** Timer task for system tick */
+    private val mTask = TickTask()
+    /** Target we publish for clients to send messages to IncomingHandler. */
+    private val mMessenger = Messenger(IncomingHandler())
 
     /**
      * Handler of incoming messages from clients.
@@ -94,11 +92,12 @@ class WdtService : Service() {
 
     override fun onCreate() {
         Log.d("WdtService", "onCreate")
-        Timer("WDT", false).scheduleAtFixedRate(TickTask(), 1000, 1000)
+        Timer("WDT", false).scheduleAtFixedRate(mTask, 1000, 1000)
     }
 
     override fun onDestroy() {
         Log.d("WdtService", "onDestroy")
+        mTask.cancel()
         Timer("WDT").cancel()
     }
 

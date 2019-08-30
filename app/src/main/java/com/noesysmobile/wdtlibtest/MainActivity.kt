@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), WdtCallback {
         Log.d("MainActivity", "onPause")
         wdt!![0]!!.release()
         wdt!![1]!!.release()
-        wdt = null
+        wdt!!.clear()
         super.onPause()
     }
 

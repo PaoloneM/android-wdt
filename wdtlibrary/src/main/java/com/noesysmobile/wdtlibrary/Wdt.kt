@@ -36,6 +36,8 @@ class Wdt(context: Context, timeout: Int, callback: WdtCallback)  {
         ) {
             Log.d("Wdt", "onServiceConnected")
 
+            mIsBound = true
+
             // This is called when the connection with the service has been
             // established, giving us the service object we can use to
             // interact with the service.  We are communicating with our
@@ -61,6 +63,7 @@ class Wdt(context: Context, timeout: Int, callback: WdtCallback)  {
             // This is called when the connection with the service has been
             // unexpectedly disconnected -- that is, its process crashed.
             mService = null
+            mIsBound = false
         }
     }
 
@@ -95,7 +98,6 @@ class Wdt(context: Context, timeout: Int, callback: WdtCallback)  {
                 WdtService::class.java
             ), mConnection, Context.BIND_AUTO_CREATE
         )
-        mIsBound = true
     }
 
     fun release() {
