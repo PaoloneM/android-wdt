@@ -10,6 +10,7 @@ import com.noesysmobile.wdtlibrary.Wdt
 import com.noesysmobile.wdtlibrary.WdtCallback
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity(), WdtCallback {
 
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity(), WdtCallback {
         super.onResume()
         wdt!!.add(Wdt(this, 10, this))
         wdt!!.add(Wdt(this, 5, this))
+        list_view.adapter = WdtListAdapter(this, R.layout.list_row, wdt!!)
     }
 
     override fun onPause() {

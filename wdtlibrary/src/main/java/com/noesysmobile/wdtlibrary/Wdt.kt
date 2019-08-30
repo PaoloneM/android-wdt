@@ -149,4 +149,7 @@ class Wdt(context: Context, timeout: Int, callback: WdtCallback)  {
         mService!!.send(msg)
     }
 
+    fun getId(): String {
+        return mId
+    }
 }
