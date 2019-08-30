@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), WdtCallback {
 
 
-    private var wdt: ArrayList<Wdt>? = null
+    private var wdt: ArrayList<Wdt>? = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d("MainActivity", "onCreate")
@@ -23,7 +23,8 @@ class MainActivity : AppCompatActivity(), WdtCallback {
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
-          //  wdt!![0].reset()
+            wdt!![0].reset()
+            wdt!![1].reset()
         }
 
     }
@@ -31,12 +32,14 @@ class MainActivity : AppCompatActivity(), WdtCallback {
     override fun onResume() {
         Log.d("MainActivity", "onResume")
         super.onResume()
-        this!!.wdt?.set(0, Wdt(this, 10, this))
+        wdt!!.add(Wdt(this, 10, this))
+        wdt!!.add(Wdt(this, 5, this))
     }
 
     override fun onPause() {
         Log.d("MainActivity", "onPause")
-        wdt?.get(0)!!.release()
+        wdt!![0]!!.release()
+        wdt!![1]!!.release()
         wdt = null
         super.onPause()
     }
