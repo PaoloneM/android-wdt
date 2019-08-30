@@ -22,8 +22,8 @@ class WdtListAdapter(context: Context, @LayoutRes private val layoutResource: In
             rowView = convertView
         }
         rowView.timeout_count.text = "0"
-        rowView.firstLine.text = wdts[position].getId()
-
+        rowView.firstLine.text = "ID: ${wdts[position].getId()}"
+        rowView.secondLine.text = "Timeout: ${wdts[position].getTimeout()}"
         return rowView
     }
 }

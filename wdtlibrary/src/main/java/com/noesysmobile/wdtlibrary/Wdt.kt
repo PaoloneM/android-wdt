@@ -152,4 +152,8 @@ class Wdt(context: Context, timeout: Int, callback: WdtCallback)  {
     fun getId(): String {
         return mId
     }
+
+    fun getTimeout(): Int {
+        return mTimeout
+    }
 }
