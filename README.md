@@ -4,10 +4,16 @@ Simple WatchDog Timer library for Android. If not periodically reset, the ```wdt
 
 ## Usage
 
-Add dependency
+Add Jitpack in Project's gradle file
 
 ```
-
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://jitpack.io" }      <-- add this line
+    }
+}
 ```
 
 Let your class implement the ```WdtCallback``` interface:
