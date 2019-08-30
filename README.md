@@ -1,8 +1,8 @@
-* Watchdog timer library for Android
+# Watchdog timer library for Android
 
 Simple WatchDog Timer library for Android. If not periodically reset, the ```wdt``` object will fire a callback after a period of time defined when object is instantiated.
 
-** Usage
+## Usage
 
 Add dependency
 
