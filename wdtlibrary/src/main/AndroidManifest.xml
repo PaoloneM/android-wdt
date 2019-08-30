@@ -4,8 +4,7 @@
         <service
                 android:name=".WdtService"
                 android:enabled="true"
-                android:exported="false"
-                android:process=":wdt">
+                android:exported="false" >
         </service>
     </application>
 </manifest>

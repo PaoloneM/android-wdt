@@ -19,6 +19,14 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <!-- Uncomment this to run service in a separate process
+        <service
+            android:name="com.noesysmobile.wdtlibrary.WdtService"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":wdt">
+        </service>
+        -->
     </application>
 
 </manifest>
