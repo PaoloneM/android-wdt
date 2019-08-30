@@ -36,7 +36,12 @@ class WdtConstants {
         /**
          * Initial timer delay
          */
-        internal val TIMER_PERIOD = 1000L
+        internal val TIMER_PERIOD = 100L
+
+        /**
+         * Initial timer delay
+         */
+        internal val TIMER_CHECK_PERIOD = 1000L
 
         /**
          * WDT id key in bundle

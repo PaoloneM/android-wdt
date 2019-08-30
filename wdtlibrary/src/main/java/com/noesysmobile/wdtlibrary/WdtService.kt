@@ -12,6 +12,7 @@ import kotlin.collections.HashMap
 import android.R.string.cancel
 import android.util.Log
 import com.noesysmobile.wdtlibrary.WdtConstants.Companion.ID
+import com.noesysmobile.wdtlibrary.WdtConstants.Companion.TIMER_CHECK_PERIOD
 import com.noesysmobile.wdtlibrary.WdtConstants.Companion.TIMER_INITIAL_DELAY
 import com.noesysmobile.wdtlibrary.WdtConstants.Companion.TIMER_PERIOD
 
@@ -38,7 +39,7 @@ class WdtService : Service() {
             when (msg.what) {
                 MSG_REGISTER_CLIENT -> addClient(msg.replyTo, msg.obj as Bundle, msg.arg1)
                 MSG_UNREGISTER_CLIENT -> removeClient(msg.obj as String)
-                MSG_RESET -> resetCounter(msg.obj as String)
+                MSG_RESET -> resetCounter(msg.obj as Bundle)
                 else -> super.handleMessage(msg)
             }
         }
@@ -59,6 +60,12 @@ class WdtService : Service() {
         mCounters.remove(id)
     }
 
+    private fun resetCounter(obj: Bundle) {
+        Log.d("WdtService", "resetCounter")
+        val id = obj.getString(ID)
+        resetCounter(id)
+    }
+
     private fun resetCounter(id: String) {
         Log.d("WdtService", "resetCounter")
         mCounters[id] = 0
@@ -75,7 +82,7 @@ class WdtService : Service() {
 
     private fun checkTimeout(key: String, value: Int) {
         Log.d("WdtService", "checkTimeout $key $value")
-        if (mCounters[key]!! >= value){
+        if (mCounters[key]!! >= value * TIMER_CHECK_PERIOD / TIMER_PERIOD){
             // Checked counter exceeds timeout, signal and reset it
             sendTimeoutMessage(key)
             resetCounter(key)
