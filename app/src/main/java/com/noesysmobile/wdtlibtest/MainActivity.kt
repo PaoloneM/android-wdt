@@ -11,11 +11,15 @@ import com.noesysmobile.wdtlibrary.WdtCallback
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(), WdtCallback {
 
 
     private var wdt: ArrayList<Wdt>? = ArrayList()
+
+    private var adapter: WdtListAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d("MainActivity", "onCreate")
@@ -23,9 +27,12 @@ class MainActivity : AppCompatActivity(), WdtCallback {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        adapter = WdtListAdapter(this, R.layout.list_row, wdt!!)
+        list_view.adapter = adapter
+
         fab.setOnClickListener { view ->
-            wdt!![0].reset()
-            wdt!![1].reset()
+            wdt!!.add(Wdt(this, Random().nextInt(10) + 1, this))
+            adapter!!.notifyDataSetChanged()
         }
 
     }
@@ -35,7 +42,7 @@ class MainActivity : AppCompatActivity(), WdtCallback {
         super.onResume()
         wdt!!.add(Wdt(this, 10, this))
         wdt!!.add(Wdt(this, 5, this))
-        list_view.adapter = WdtListAdapter(this, R.layout.list_row, wdt!!)
+        adapter!!.notifyDataSetChanged()
     }
 
     override fun onPause() {
@@ -64,6 +71,7 @@ class MainActivity : AppCompatActivity(), WdtCallback {
 
     override fun onWdtExpired() {
         Log.d("MainActivity", "WDT Expired")
+        adapter!!.notifyDataSetChanged()
     }
 
 }

@@ -21,6 +21,7 @@ class Wdt(context: Context, timeout: Int, callback: WdtCallback)  {
     private val mCallback: WdtCallback = callback
     private val mContext: Context = context
     private val mId: String = UUID.randomUUID().toString()
+    private var mTimeouts: Int = 0
     /**
      * Target we publish for clients to send messages to IncomingHandler.
      */
@@ -80,10 +81,15 @@ class Wdt(context: Context, timeout: Int, callback: WdtCallback)  {
         override fun handleMessage(msg: Message) {
             Log.d("Wdt", "handlemessage")
             when (msg.what) {
-                MSG_WDT_EXPIRED -> mCallback.onWdtExpired()
+                MSG_WDT_EXPIRED -> onWdtExpired()
                 else -> super.handleMessage(msg)
             }
         }
+    }
+
+    private fun onWdtExpired() {
+        mTimeouts++
+        mCallback.onWdtExpired()
     }
 
 
@@ -155,5 +161,9 @@ class Wdt(context: Context, timeout: Int, callback: WdtCallback)  {
 
     fun getTimeout(): Int {
         return mTimeout
+    }
+
+    fun getOccurredTimeouts(): Int {
+        return mTimeouts
     }
 }
