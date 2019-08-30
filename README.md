@@ -2,7 +2,7 @@
 
 Simple WatchDog Timer library for Android. If not periodically reset, the ```wdt``` object will fire a callback after a period of time defined when object is instantiated.
 
-## Usage
+## Installation
 
 Add Jitpack in Project's gradle file
 
@@ -15,6 +15,12 @@ allprojects {
     }
 }
 ```
+and add dependency in app's gradle file
+```
+    implementation 'com.github.PaoloneM:android-wdt:1.0.0'
+```
+
+## Usage
 
 Let your class implement the ```WdtCallback``` interface:
 ```kotlin
