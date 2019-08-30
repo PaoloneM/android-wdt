@@ -46,5 +46,5 @@ wdt.reset()
 
 When you have done with it, remember to disable it by calling
 ```kotlin
-wdl.clear()
+wdt.clear()
 ```
